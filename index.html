@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernShop - Zamonaviy Do'kon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+
+        .cart-icon {
+            color: #4b5563;
+            padding: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cart-icon:hover {
+            color: #6366f1;
+        }
+
+        .cart-svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%), url('assets/hero-ecommerce-bg.jpeg?prompt=Modern%20e-commerce%20hero%20background%20with%20technology%20devices%20like%20smartphones%2C%20laptops%2C%20gadgets%20on%20clean%20white%20surface%2C%20professional%20product%20photography%20style%2C%20soft%20lighting%2C%20minimalist%20composition');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: #fff;
+            color: #6366f1;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 100px 0;
+            background: #f9fafb;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1f2937;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #9ca3af;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: #ef4444;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .price-section {
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 0.25rem;
+        }
+
+        .old-price {
+            font-size: 1rem;
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #4f46e5;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .feature p {
+            color: #6b7280;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 50px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #6366f1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: right;
+            margin-top: 1rem;
+            color: #6366f1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">ModernShop</div>
+
+            <a href="#" class="cart-icon" onclick="openCart()">
+                <svg class="cart-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V16.5M9 19.5C9.8 19.5 10.5 20.2 10.5 21S9.8 22.5 9 22.5 7.5 21.8 7.5 21 8.2 19.5 9 19.5ZM20 19.5C20.8 19.5 21.5 20.2 21.5 21S20.8 22.5 20 22.5 18.5 21.8 18.5 21 19.2 19.5 20 19.5Z"/>
+                </svg>
+                Savat
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Zamonaviy Mahsulotlar</h1>
+            <p>Eng sifatli va zamonaviy mahsulotlarni arzon narxlarda</p>
+            <a href="#products" class="cta-button">Xarid qilish</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Mashhur Mahsulotlar</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/smartphone-product.jpeg?prompt=Modern%20smartphone%20with%20sleek%20design%2C%20premium%20build%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-20%</div>
+                        <h3 class="product-title">Zamonaviy Smartphone</h3>
+                        <div class="price-section">
+                            <div class="product-price">2,500,000 so'm</div>
+                            <div class="old-price">3,125,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Smartphone', 2500000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/gaming-laptop.jpeg?prompt=Gaming%20laptop%20with%20RGB%20lighting%2C%20modern%20design%2C%20open%20display%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-15%</div>
+                        <h3 class="product-title">Gaming Laptop</h3>
+                        <div class="price-section">
+                            <div class="product-price">15,000,000 so'm</div>
+                            <div class="old-price">17,647,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Laptop', 15000000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/wireless-headphones.jpeg?prompt=Premium%20wireless%20headphones%2C%20sleek%20black%20design%2C%20over-ear%20style%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-25%</div>
+                        <h3 class="product-title">Wireless Headphones</h3>
+                        <div class="price-section">
+                            <div class="product-price">850,000 so'm</div>
+                            <div class="old-price">1,133,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Headphones', 850000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/smart-watch.jpeg?prompt=Modern%20smartwatch%20with%20digital%20display%2C%20sport%20band%2C%20sleek%20design%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-30%</div>
+                        <h3 class="product-title">Smart Watch</h3>
+                        <div class="price-section">
+                            <div class="product-price">1,200,000 so'm</div>
+                            <div class="old-price">1,714,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Smart Watch', 1200000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/digital-camera.jpeg?prompt=Professional%20DSLR%20camera%20with%20lens%2C%20black%20body%2C%20modern%20design%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-10%</div>
+                        <h3 class="product-title">Digital Camera</h3>
+                        <div class="price-section">
+                            <div class="product-price">8,500,000 so'm</div>
+                            <div class="old-price">9,444,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Camera', 8500000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/4k-monitor.jpeg?prompt=Modern%204K%20monitor%20with%20thin%20bezels%2C%20sleek%20stand%2C%20large%20display%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-18%</div>
+                        <h3 class="product-title">4K Monitor</h3>
+                        <div class="price-section">
+                            <div class="product-price">3,200,000 so'm</div>
+                            <div class="old-price">3,902,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Monitor', 3200000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/tablet-product.jpeg?prompt=Modern%20tablet%20with%20sleek%20design%2C%20large%20touchscreen%2C%20thin%20profile%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-22%</div>
+                        <h3 class="product-title">Premium Tablet</h3>
+                        <div class="price-section">
+                            <div class="product-price">4,800,000 so'm</div>
+                            <div class="old-price">6,154,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Tablet', 4800000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('assets/wireless-earbuds.jpeg?prompt=Premium%20wireless%20earbuds%20in%20charging%20case%2C%20white%20color%2C%20modern%20design%2C%20professional%20product%20photography%2C%20white%20background%2C%20high%20quality')"></div>
+                    <div class="product-info">
+                        <div class="discount-badge">-35%</div>
+                        <h3 class="product-title">Wireless Earbuds</h3>
+                        <div class="price-section">
+                            <div class="product-price">650,000 so'm</div>
+                            <div class="old-price">1,000,000 so'm</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart('Earbuds', 650000)">Savatga qo'shish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Bizning Afzalliklarimiz</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Tez Yetkazib Berish</h3>
+                    <p>24 soat ichida mahsulotlaringizni yetkazib beramiz</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Xavfsiz To'lov</h3>
+                    <p>Barcha to'lov usullari 100% himoyalangan</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📞</div>
+                    <h3>24/7 Qo'llab-quvvatlash</h3>
+                    <p>Har qanday savolingiz bo'yicha yordam beramiz</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎁</div>
+                    <h3>Bepul Kafolat</h3>
+                    <p>Barcha mahsulotlarga 2 yillik bepul kafolat beramiz</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ModernShop</h3>
+                    <p>Zamonaviy texnologiyalar va sifatli mahsulotlar do'koni</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Tez havolalar</h3>
+                    <ul>
+                        <li><a href="#">Mahsulotlar</a></li>
+                        <li><a href="#">Biz haqimizda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Xizmatlar</h3>
+                    <ul>
+                        <li><a href="#">Yetkazib berish</a></li>
+                        <li><a href="#">Qaytarish</a></li>
+                        <li><a href="#">Kafolat</a></li>
+                        <li><a href="#">Qo'llab-quvvatlash</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Aloqa</h3>
+                    <ul>
+                        <li>📞 +998 90 123 45 67</li>
+                        <li>✉️ info@modernshop.uz</li>
+                        <li>📍 Toshkent, Uzbekiston</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ModernShop. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2>Savat</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Jami: 0 so'm</div>
+            <button class="cta-button" style="width: 100%; margin-top: 1rem;">Buyurtma berish</button>
+        </div>
+    </div>
+
+    <script type="module">
+        let cart = [];
+        let cartCount = 0;
+
+        window.addToCart = function(productName, price) {
+            cart.push({name: productName, price: price});
+            cartCount++;
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            // Show success message
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Qo\'shildi ✓';
+            button.style.background = '#10b981';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '#6366f1';
+            }, 1000);
+        }
+
+        window.openCart = function() {
+            const modal = document.getElementById('cartModal');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>${item.price.toLocaleString()} so'm</span>
+                `;
+                cartItems.appendChild(cartItem);
+                total += item.price;
+            });
+            
+            cartTotal.textContent = `Jami: ${total.toLocaleString()} so'm`;
+            modal.style.display = 'block';
+        }
+
+        window.closeCart = function() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
